@@ -5,9 +5,7 @@ This project aims to create an intelligent bench power supply that is able to pr
 ## Libraries
 
 This project currently only uses these external libraries:
-..* LiquidCrystal_I2C (https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library)
-..* ACS712-arduino (https://github.com/rkoptev/ACS712-arduino)
+* LiquidCrystal_I2C (https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library)
+* ACS712-arduino (https://github.com/rkoptev/ACS712-arduino)
 
 ## License
-
-A short snippet describing the license (MIT, Apache, etc.)

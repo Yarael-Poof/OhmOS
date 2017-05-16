@@ -2,7 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 #include "ACS712.h"
 float c;
-
+int fanPin = 2;
 LiquidCrystal_I2C lcd(0x27,20,4);
 ACS712 sensor(ACS712_20A, A0);
 
@@ -11,6 +11,8 @@ void setup() {
   Serial.begin(9600);
   lcd.init();
   lcd.backlight();
+  pinMode(fanPin, OUTPUT);
+  digitalWrite(fanPin, HIGH);
   lcd.setCursor(0,2);
   lcd.print(String("OhmOS") + " " + (char)244);
   lcd.setCursor(0,3);
@@ -24,6 +26,7 @@ void setup() {
   lcd.print("Done!");
   delay(500);
   lcd.clear();
+  digitalWrite(fanPin, HIGH);
  
 }
 

@@ -26,7 +26,7 @@ void setup() {
   lcd.setCursor(0,2);
   lcd.print(String("OhmOS") + " " + (char)244);
   lcd.setCursor(0,3);
-  lcd.print("150517v1.1");
+  lcd.print("160517v1.5");
   delay(2000);
   lcd.clear();
   lcd.print("Calibrating... ");
@@ -70,5 +70,5 @@ void loop() {
    lcd.print(String("T :") + int(Thermistor(analogRead(2))) + char(223)+ "C");
   delay(300);
   }
-  
+
 }

@@ -1,18 +1,28 @@
-#include <Wire.h> 
+#include <Wire.h>
 #include <LiquidCrystal_I2C.h>
 #include "ACS712.h"
+#include <math.h>
 float c;
-int fanPin = 2;
+int fanPin = 4;
 LiquidCrystal_I2C lcd(0x27,20,4);
 ACS712 sensor(ACS712_20A, A0);
+
+double Thermistor(int RawADC) {
+ double Temp;
+ Temp = log(10000.0*((1024.0/RawADC-1)));
+//         =log(10000.0/(1024.0/RawADC-1)) // for pull-up configuration
+ Temp = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * Temp * Temp ))* Temp );
+ Temp = Temp - 273.15;            // Convert Kelvin to Celcius
+ return Temp;
+}
+
 
 
 void setup() {
   Serial.begin(9600);
+  pinMode(fanPin, OUTPUT);
   lcd.init();
   lcd.backlight();
-  pinMode(fanPin, OUTPUT);
-  digitalWrite(fanPin, HIGH);
   lcd.setCursor(0,2);
   lcd.print(String("OhmOS") + " " + (char)244);
   lcd.setCursor(0,3);
@@ -26,8 +36,8 @@ void setup() {
   lcd.print("Done!");
   delay(500);
   lcd.clear();
-  digitalWrite(fanPin, HIGH);
- 
+
+
 }
 
 void loop() {
@@ -49,5 +59,16 @@ void loop() {
   lcd.print(String("P :") + power);
   lcd.setCursor(10,2);
   lcd.print("W");
+  lcd.setCursor(0,3);
+  if (int(Thermistor(analogRead(2))) > 27)
+  {
+    digitalWrite(fanPin, HIGH);
+  }
+  else
+  {
+   digitalWrite(fanPin, LOW);
+   lcd.print(String("T :") + int(Thermistor(analogRead(2))) + char(223)+ "C");
   delay(300);
+  }
+  
 }

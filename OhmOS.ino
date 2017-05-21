@@ -25,7 +25,7 @@ void setup() {
   lcd.setCursor(0,2);
   lcd.print(String("OhmOS") + " " + (char)244);
   lcd.setCursor(0,3);
-  lcd.print("160517v1.5");
+  lcd.print("210517v2");
   delay(2000);
   lcd.clear();
   lcd.print("Calibrating... ");
@@ -56,16 +56,30 @@ void loop() {
   lcd.print(String("P :") + power);
   lcd.setCursor(10,2);
   lcd.print("W");
-  lcd.setCursor(0,3);
+  lcd.setCursor(12,0);
+  lcd.print("STS:");
   if (int(Thermistor(analogRead(2))) > 27)
   {
+    lcd.setCursor(0,3);
     digitalWrite(fanPin, HIGH);
+    lcd.print(String("T :") + int(Thermistor(analogRead(2))) + char(223)+ "C");
+    delay(300);
+    lcd.setCursor(16,0);
+    lcd.print("    ");
+    lcd.setCursor(16,0);
+    lcd.print("TEMP");
   }
   else
   {
+   lcd.setCursor(0,3);
    digitalWrite(fanPin, LOW);
    lcd.print(String("T :") + int(Thermistor(analogRead(2))) + char(223)+ "C");
-  delay(300);
+   lcd.setCursor(16,0);
+   lcd.print("    ");
+   lcd.setCursor(16,0);
+   lcd.print("OK");
+   delay(300);
+   
   }
 
 }

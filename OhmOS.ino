@@ -41,7 +41,7 @@ void loop() {
   int voltageSensor = analogRead(A1);
   float I = sensor.getCurrentDC();
   c = -1 * I;
-  float voltage = (voltageSensor * 28) / 1024.0;
+  float voltage = (voltageSensor * 29.2) / 1024.0;
   float power = voltage * c;
   float R = voltage / c;
   lcd.setCursor(0,0);

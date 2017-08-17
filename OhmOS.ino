@@ -2,6 +2,7 @@
 #include <LiquidCrystal_I2C.h>
 #include "ACS712.h"
 #include <math.h>
+#include <MemoryFree.h>
 float c;
 int fanPin = 4;
 int alarmPin = 3;
@@ -11,7 +12,7 @@ unsigned long time;
 long interval = 500;
 int alarmState = LOW;  
 long previousMillis = 0; 
-char vNum[] = "020717v3";
+char vNum[] = "170817v3.1";
 
 double Thermistor(int RawADC) {
  double Temp;
@@ -29,10 +30,12 @@ void setup() {
   pinMode(alarmPin, OUTPUT);
   lcd.init();
   lcd.backlight();
-  lcd.setCursor(0,2);
+  lcd.setCursor(0,1);
   lcd.print(String("OhmOS") + " " + (char)244);
-  lcd.setCursor(0,3);
+  lcd.setCursor(0,2);
   lcd.print(vNum);
+  lcd.setCursor(0,3);
+  lcd.print(String("RAM free:") + freeMemory() + " " + "bytes");
   delay(2000);
   lcd.clear();
   lcd.print("Calibrating... ");
@@ -76,7 +79,7 @@ void loop() {
   lcd.setCursor(12,1);
   lcd.print("CC-INOP");
 
-  if (int(Thermistor(analogRead(2))) > 45 )
+  if (int(Thermistor(analogRead(2))) > 40 )
   {
     lcd.setCursor(0,3);
     digitalWrite(fanPin, HIGH);

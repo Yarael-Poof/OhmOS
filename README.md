@@ -7,5 +7,6 @@ This project aims to create an intelligent bench power supply that is able to pr
 OhmOS currently only uses these external libraries:
 * LiquidCrystal_I2C (https://github.com/fdebrabander/Arduino-LiquidCrystal-I2C-library)
 * ACS712-arduino (https://github.com/rkoptev/ACS712-arduino)
+* MemoryFree (https://github.com/McNeight/MemoryFree)
 
 ## License

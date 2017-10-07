@@ -13,11 +13,6 @@ long interval = 500;
 int alarmState = LOW;  
 long previousMillis = 0; 
 char vNum[] = "170817v3.1";
-char eCode[] = "0000";
-int badStatus = 0;
-void b();
-void d();
-
 
 double Thermistor(int RawADC) {
  double Temp;
@@ -27,10 +22,6 @@ double Thermistor(int RawADC) {
  return Temp;
 }
 
-typedef void (* Caller)();
-Caller FuncCall[] = {&a, &b, &d}; //initialize addresses for pointers 
-//String func_list[] = {"a","b","c"}; //this is a terrible way to do this
-char func_list[] = {'a', 'b', 'd'};   //use this instead - if you wish
 
 
 void setup() {
@@ -96,7 +87,6 @@ void loop() {
     delay(300);
     lcd.setCursor(16,0);
     lcd.print("    ");
-    badStatus = 1;
     lcd.setCursor(16,0);
     lcd.print("TEMP");
     alarmSequence();
@@ -111,29 +101,10 @@ void loop() {
    lcd.print("    ");
    lcd.setCursor(16,0);
    lcd.print("OK");
-   badStatus = 0;
-   char eCode[] = "0001";
    delay(300);
    
   }
-  if(Serial.available())
-        switch(Serial.read()){
-            case 'a':           //this could also be func_list[0], if you want
-                FuncCall[0]();
-                break;
 
-            case 'b':
-                FuncCall[1]();
-                break;
-
-            case 'c':
-                FuncCall[2]();
-                break;
-
-            default:
-                Serial.println("There was an error\n");
-                break;
-    }
 }
 
 void alarmSequence()
@@ -154,35 +125,5 @@ void alarmSequence()
   }
 }
 
-void a(int badstatus, char eCode, char vNum)
-{
-  lcd.clear();
-  lcd.setCursor(0,0);
-  lcd.print("Error State =" + badStatus);
-  if(badStatus == 1)
-  {
-  lcd.setCursor(0,1);
-  lcd.print("Error Code :" + eCode);
-  }
-  else
-  {
-  }
-  lcd.setCursor(4,0);
-  lcd.print("FW Version:"+vNum);
-  delay(5000);
-  return 0;
-
-
-
-
-
-}
-void b(){
-    Serial.println("Called Function: b\n");
-}
-
-void d(){
-    Serial.println("Called Function: c\n");
-}
 
 
